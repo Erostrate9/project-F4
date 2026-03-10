@@ -1,3 +1,0 @@
-\beamer@sectionintoc {1}{Background \& Problem Statement}{3}{0}{1}
-\beamer@sectionintoc {2}{Benchmark Construction \& Analysis}{9}{0}{2}
-\beamer@sectionintoc {3}{PUMA, Experiments \& Conclusion}{19}{0}{3}

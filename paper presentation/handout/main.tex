@@ -1,0 +1,162 @@
+\documentclass{article}
+
+\usepackage{handout}
+
+\begin{document}
+
+\small
+
+\begin{center}
+	{\LARGE\bfseries Large Language Models Empowered
+Personalized Web Agents\par}
+	\vspace{0.35em}
+	{\normalsize\emph{Presented by: Yan Zhang, Eric Sun, and Sabrina Cai}\par}
+	\vspace{0.2em}
+	{\small \texttt{\{Yan.Zhang, ysun338, hcai062\}@uOttawa.ca}\par}
+	{\small EECS, University of Ottawa\par}
+	\vspace{0.2em}
+	{\small March 10, 2026\par}
+\end{center}
+
+\vspace{0.4em}
+
+\begin{tcolorbox}[colback=blue!4,colframe=blue!45!black,title=Paper at a Glance]
+\textbf{Core question.} How can a web agent complete a task for \emph{this} user rather than for an average user?\\
+\textbf{Main contributions.} (1) A formalized \textbf{personalized web agent} task, (2) a benchmark called \textbf{PersonalWAB}, and (3) a memory-enhanced framework called \textbf{PUMA}.\\
+\textbf{Headline result.} Personalized agents that retrieve user history outperform non-personalized baselines, especially when the instruction is underspecified.
+\end{tcolorbox}
+
+\begin{multicols}{2}
+
+\section*{1. Background \& Motivation}
+Large language model (LLM) agents can already choose tools, call functions, and follow multi-step instructions. However, most web agents still behave like \emph{generic assistants}: they react to the current query but ignore who the user is.
+
+In e-commerce, this is a major limitation. A request such as ``find me a good backpack'' is incomplete without user-specific context such as budget, preferred brands, travel habits, past purchases, and review style. The paper argues that practical web agents should combine:
+
+\begin{itemize}[leftmargin=1.1em,itemsep=0.2em,topsep=0.2em]
+	\item the \textbf{current instruction}, and
+	\item the user's \textbf{historical behavior and preferences}.
+\end{itemize}
+
+\textbf{Plain-language definition.} A personalized web agent is an LLM-based agent that uses both an instruction and user memory to select the right web action and fill in the right action parameters.
+
+\section*{2. Problem Statement: The Task}
+The paper formalizes a new task: \textbf{personalized web interaction}. The agent must infer hidden user preferences and then complete a task using a small set of web functions.
+
+\begin{tcolorbox}[colback=gray!4,colframe=gray!55!black,title=Why this is different from a standard web agent]
+Standard agents optimize for \emph{instruction following}. Personalized agents must also optimize for \emph{preference inference}. The key challenge is that preferences are often \textbf{implicit}, not explicitly written in the prompt.
+\end{tcolorbox}
+
+The task can be summarized as:\\
+\centerline{\emph{user query + user history $\rightarrow$ personalized action sequence and output}}
+
+This shift matters because many user requests are ambiguous by design. The agent must decide what to retrieve from memory, which function to call, and what arguments best match the user.
+
+\section*{3. Main Contributions}
+The paper contributes three things:
+
+\begin{enumerate}[leftmargin=1.3em,itemsep=0.2em,topsep=0.2em]
+	\item \textbf{Task formulation:} personalized web agents as a new research problem.
+	\item \textbf{Benchmark:} \textbf{PersonalWAB}, designed for controlled evaluation of personalization ability.
+	\item \textbf{Method:} \textbf{PUMA} (Personalized User Memory-enhanced Alignment), a framework that uses retrieval and alignment to improve personalized decision making.
+\end{enumerate}
+
+\section*{4. PersonalWAB Benchmark}
+\textbf{What it is.} PersonalWAB is the paper's benchmark for evaluating whether an agent can act on behalf of a specific user.
+
+\textbf{Data source.} It is built from Amazon Reviews-style user behavior, so the benchmark reflects realistic e-commerce preferences such as product interests, purchase history, and review tendencies.
+
+\textbf{Supported tasks.}
+\begin{itemize}[leftmargin=1.1em,itemsep=0.2em,topsep=0.2em]
+	\item \textbf{Personalized search}
+	\item \textbf{Personalized recommendation}
+	\item \textbf{Personalized review generation}
+\end{itemize}
+
+\textbf{Environment design.} Instead of full browser navigation, the benchmark abstracts the environment into functions such as product search, recommendation retrieval, review writing, response, and stop. This makes the evaluation reproducible and isolates the personalization challenge.
+
+\textbf{Why PersonalWAB matters.}
+\begin{itemize}[leftmargin=1.1em,itemsep=0.2em,topsep=0.2em]
+	\item It tests \emph{personalization}, not just tool use.
+	\item It supports both \textbf{single-turn} and \textbf{multi-turn} settings.
+	\item It creates a reusable benchmark for future work on personalized agents.
+\end{itemize}
+
+\columnbreak%
+
+\section*{5. PUMA Framework}
+\textbf{PUMA} stands for \textbf{Personalized User Memory-enhanced Alignment}. Its main idea is simple: retrieve the most relevant user history and use it to guide action selection.
+
+\subsection*{5.1 Key intuition}
+Not all user history is equally useful for every task. PUMA builds a \textbf{long-term memory bank} and retrieves task-relevant evidence. For example, recommendation may need category and purchase patterns, while review generation may need writing style and sentiment cues.
+
+\subsection*{5.2 Two-stage decision process}
+The framework separates decision making into two subproblems:
+
+\begin{enumerate}[leftmargin=1.3em,itemsep=0.2em,topsep=0.2em]
+	\item \textbf{Web function identification:} decide which action to take.
+	\item \textbf{Function parameter generation:} generate the arguments that best fit the user and task.
+\end{enumerate}
+
+This decomposition is important because an agent can fail in two different ways: by choosing the wrong action, or by choosing the right action with poorly personalized parameters.
+
+\subsection*{5.3 Learning and alignment}
+PUMA uses a combination of:
+\begin{itemize}[leftmargin=1.1em,itemsep=0.2em,topsep=0.2em]
+	\item \textbf{retrieval} from user memory,
+	\item \textbf{supervised fine-tuning (SFT)} for parameter generation, and
+	\item \textbf{direct preference optimization (DPO)} to better align outputs with user preference.
+\end{itemize}
+
+For a machine learning audience, the key message is that personalization is treated as both a \emph{memory retrieval} problem and an \emph{alignment} problem.
+
+\section*{6. Experimental Findings}
+The experiments show that PUMA\@ improves over baseline web-agent methods on PersonalWAB.
+
+\begin{itemize}[leftmargin=1.1em,itemsep=0.2em,topsep=0.2em]
+	\item Gains appear in both \textbf{single-turn} and \textbf{multi-turn} settings.
+	\item The advantage is strongest when the user request is \textbf{underspecified}.
+	\item Explicitly using retrieved user history leads to better function decisions and better arguments.
+\end{itemize}
+
+\begin{center}
+\footnotesize
+\begin{tabular}{@{}p{0.24\linewidth}p{0.30\linewidth}p{0.30\linewidth}@{}}
+\toprule
+Aspect & Generic agent & Personalized agent \\
+\midrule
+Input used & Current query only & Query + user history \\
+Goal & Task completion & Task completion \emph{for this user} \\
+Failure mode & Wrong action & Wrong action or poor personalization \\
+Value added & Automation & Better preference matching \\
+\bottomrule
+\end{tabular}
+\normalsize
+\end{center}
+
+\section*{7. Limitations \& Discussion}
+The paper is strong, but the benchmarked setting is still narrower than the full real web.
+
+\begin{itemize}[leftmargin=1.1em,itemsep=0.2em,topsep=0.2em]
+	\item \textbf{Domain scope:} the benchmark is centered on e-commerce behavior.
+	\item \textbf{Environment abstraction:} function calls are easier to control than messy real websites.
+	\item \textbf{User modeling:} performance depends on how informative the stored user history is.
+	\item \textbf{Practical concerns:} personalization raises privacy, storage, and stale-memory issues.
+\end{itemize}
+
+\section*{8. Takeaways}
+\begin{tcolorbox}[colback=green!4,colframe=green!40!black,title=What to remember]
+\begin{itemize}[leftmargin=1.1em,itemsep=0.2em,topsep=0.2em]
+	\item The paper moves from \emph{generic} web agents to \textbf{user-aware} web agents.
+	\item \textbf{PersonalWAB} is the benchmark contribution; \textbf{PUMA} is the method contribution.
+	\item The main research insight is that successful personalization requires \textbf{memory retrieval + preference-aligned generation}.
+	\item This work is especially relevant to recommendation, shopping assistants, and future consumer AI systems.
+\end{itemize}
+\end{tcolorbox}
+
+\section*{Reference}
+Hongru Cai, Yongqi Li, Wenjie Wang, Fengbin Zhu, Xiaoyu Shen, Wenjie Li, and Tat-Seng Chua.\ \emph{Large Language Models Empowered Personalized Web Agents}. In Proceedings of The Web Conference 2025 (WWW~2025).
+
+\end{multicols}
+
+\end{document}

@@ -1,0 +1,73 @@
+\ProvidesPackage{handout}[2026/03/06 CSI5389 Handout Style]
+
+% Enforce LuaLaTeX engine compilation
+\RequirePackage{iftex}
+\RequireLuaTeX
+
+% ==========================================
+% Font Settings (Native LuaLaTeX approach)
+% ==========================================
+\RequirePackage{fontspec}
+% Load IBM Plex family using native OS/TeXLive fonts
+\setmainfont{IBM Plex Serif}
+\setsansfont{IBM Plex Sans}
+\setmonofont{IBM Plex Mono}
+
+% Enable micro-typography optimization for better justification and spacing
+\RequirePackage{microtype}
+
+% ==========================================
+% Core Dependencies (Optimized for Presentation Handouts)
+% ==========================================
+\RequirePackage{graphicx}   % Required for inserting images
+\RequirePackage{xcolor}     % Color support
+\RequirePackage{enumitem}   % List environment optimization (itemize/enumerate spacing)
+\RequirePackage{booktabs}   % High-quality publication tables
+\RequirePackage{multicol}   % Multi-column layout (great for side-by-side comparisons)
+\RequirePackage{tcolorbox}  % Colored text boxes (ideal for highlighting key contributions/takeaways)
+
+% Hyperlink settings
+\RequirePackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=teal,
+    citecolor=blue,
+}
+
+% ==========================================
+% Page Layout and Margin Optimization
+% ==========================================
+% Adjusted from the global 0.6in to provide better reading proportions
+% and adequate space for headers/footers and handling.
+\RequirePackage{geometry}
+\geometry{
+    a4paper,
+    top=0.8in,
+    bottom=0.8in,
+    left=0.7in,
+    right=0.7in,
+    headheight=14pt,
+    includeheadfoot
+}
+
+% ==========================================
+% Header and Footer Customization
+% ==========================================
+\RequirePackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % Clear default headers and footers
+\renewcommand{\headrulewidth}{0.4pt}
+% Contextual headers based on your presentation topic
+\fancyhead[L]{\small Large Language Models Empowered Personalized Web Agents}
+\fancyhead[R]{\small CSI5389}
+\fancyfoot[C]{\thepage}
+
+% ==========================================
+% Titlepage Customization
+% ==========================================
+% Author Toolkit
+\RequirePackage{authblk}
+
+\endinput

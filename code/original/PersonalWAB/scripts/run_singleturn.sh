@@ -1,0 +1,12 @@
+python run.py \
+--env pwab \
+--model gpt-4o-mini \
+--user_mode no \
+--user_model gpt-4o-mini \
+--agent_strategy function_calling \
+--agent_memory last \
+--memory_length 50 \
+--task_split test \
+--max_concurrency 5 \
+--max_steps -1 \
+--end_index -1 \
