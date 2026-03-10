@@ -191,32 +191,31 @@
 
 \begin{frame}{Related work and the missing bridge}
   \speaker{Sabrina}
-  \begin{columns}[T,onlytextwidth]
-    \column{0.42\textwidth}
-      \begin{itemize}
-        \item \keypoint{Web-agent benchmarks} study browsing, navigation, or shopping.
-        \item \keypoint{Personalized LLM work} studies dialogue, content generation, and recommendation.
-        \item The missing piece is \textbf{personalized function execution}: can an agent select the right web action and fill it with user-specific parameters?
-      \end{itemize}
-    \column{0.56\textwidth}
-      \tiny
-      \begin{adjustbox}{max width=\linewidth}
-      \begin{tabular}{@{}lccc@{}}
-        \toprule
-        Benchmark & Interaction & Environment & Personalization \\
-        \midrule
-        MiniWoB++ & Single-turn & Mobile UI & No \\
-        WebShop & Single-turn & Shopping UI & No \\
-        WebArena & Single-turn & Web UI & No \\
-        WebLINX & Multi-turn & Web UI & No \\
-        ChatShop & Multi-turn & Web function & No \\
-        \textbf{PersonalWAB} & \textbf{Single + Multi} & \textbf{Web function} & \textbf{Yes} \\
-        \bottomrule
-      \end{tabular}
-      \end{adjustbox}
-      \vspace{0.4em}
-      {\scriptsize Retyped from Table 1.}
-  \end{columns}
+  \tiny
+  \begin{adjustbox}{max width=\textwidth}
+  \begin{tabular}{@{}lccc@{}}
+    \toprule
+    Benchmark & Interaction & Environment & Personalization \\
+    \midrule
+    MiniWoB++ & Single-turn & Mobile UI & No \\
+    WebShop & Single-turn & Shopping UI & No \\
+    WebArena & Single-turn & Web UI & No \\
+    WebLINX & Multi-turn & Web UI & No \\
+    ChatShop & Multi-turn & Web function & No \\
+    \textbf{PersonalWAB} & \textbf{Single + Multi} & \textbf{Web function} & \textbf{Yes} \\
+    \bottomrule
+  \end{tabular}
+  \end{adjustbox}
+  \vspace{0.3em}
+  {\scriptsize Retyped from Table 1.}
+
+  \vspace{0.5em}
+  \small
+  \begin{itemize}
+    \item \keypoint{Web-agent benchmarks} study browsing, navigation, or shopping.
+    \item \keypoint{Personalized LLM work} studies dialogue, content generation, and recommendation.
+    \item The missing piece is \textbf{personalized function execution}: can an agent select the right web action and fill it with user-specific parameters?
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Task formulation: what exactly is the agent solving?}
