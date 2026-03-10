@@ -30,9 +30,11 @@
 \setbeamercolor*{palette primary}{bg=uOttawaLight, fg=uOttawaPrimary}
 \setbeamercolor*{palette secondary}{bg=uOttawaSecondary, fg=white}
 \setbeamercolor*{palette tertiary}{bg=uOttawaPrimary, fg=white}
+\setbeamercolor*{subsection in head/foot}{bg=uOttawaSecondary, fg=white}
 \setbeamercolor*{titlelike}{fg=uOttawaPrimary}
 \setbeamercolor*{title}{bg=uOttawaPrimary, fg=white}
 \setbeamercolor*{frametitle}{bg=uOttawaPrimary, fg=white}
+\setbeamercolor*{frametitle right}{bg=uOttawaSecondary, fg=white}
 \setbeamercolor*{structure}{fg=uOttawaPrimary}
 \setbeamercolor*{item}{fg=uOttawaPrimary}
 \setbeamercolor*{caption name}{fg=uOttawaPrimary}
@@ -191,9 +193,12 @@
 
 \begin{frame}{Related work and the missing bridge}
   \speaker{Sabrina}
-  \tiny
-  \begin{adjustbox}{max width=\textwidth}
-  \begin{tabular}{@{}lccc@{}}
+  {\scriptsize Retyped from Table 1.\par}
+  \vspace{0.35em}
+
+  {\footnotesize
+  \renewcommand{\arraystretch}{1.15}
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X>{\centering\arraybackslash}p{0.2\textwidth}>{\centering\arraybackslash}p{0.2\textwidth}>{\centering\arraybackslash}p{0.2\textwidth}@{}}
     \toprule
     Benchmark & Interaction & Environment & Personalization \\
     \midrule
@@ -204,10 +209,7 @@
     ChatShop & Multi-turn & Web function & No \\
     \textbf{PersonalWAB} & \textbf{Single + Multi} & \textbf{Web function} & \textbf{Yes} \\
     \bottomrule
-  \end{tabular}
-  \end{adjustbox}
-  \vspace{0.3em}
-  {\scriptsize Retyped from Table 1.}
+  \end{tabularx}\par}
 
   \vspace{0.5em}
   \small
